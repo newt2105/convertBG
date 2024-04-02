@@ -15,6 +15,7 @@ def main():
 
     
     prob = ilp.Convert_to_ilp(PHY, SFCs)
+    print(prob)
     G = tobigraph.Create_bipartite_graph_ILP(prob)
     draw.draw_bigraph(G)
 

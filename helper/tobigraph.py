@@ -9,10 +9,10 @@ import matplotlib.pyplot as plt
     OUTPUT  : Bipartite grapj
 """
 
+
 def Create_bipartite_graph_ILP(problem):
-
-
     G = nx.Graph()
+
     # Add variable in 1st part
     variables = [var for var in problem.variables() if isinstance(var, LpVariable)]
     for var in variables:
@@ -20,16 +20,20 @@ def Create_bipartite_graph_ILP(problem):
 
     # Add constraints in 2nd part
     constraints = [const.name for const in problem.constraints.values()]
-    for const in constraints:
-        G.add_node(const, bipartite=1)
+    variables_in_constraints = {const: [var for var in problem.constraints[const].keys() if isinstance(var, LpVariable)] for const in constraints}
+    for const, vars_in_constraint in variables_in_constraints.items():
+        if len(vars_in_constraint) > 0:  # Only add nodes if there are variables
+            G.add_node(const, bipartite=1)
 
-    # Add edge with corespond weight
+    # Add edge with corresponding weight
     coefficients = {x.name: {const: problem.constraints[const].get(x, 0) for const in constraints} for x in variables}
     for var, coeff in coefficients.items():
         for const, weight in coeff.items():
-            G.add_edge(var, const, weight=weight)
+            if weight != 0:  # Add edge only if weight is not zero
+                G.add_edge(var, const, weight=weight)
 
     return G
+
 
 # # Sử dụng hàm để tạo đồ thị từ bài toán đã cho
 # G = create_bipartite_graph_ILP(problem)

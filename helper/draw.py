@@ -16,3 +16,4 @@ def draw_bigraph(G):
     nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, label_pos = 0.3)  
     plt.title("Bipartite Graph with Edge Weights")
     plt.show()
+
