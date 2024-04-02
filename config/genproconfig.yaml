@@ -1,0 +1,11 @@
+network_generation:
+  node_capacity: 5  # Single value or range (min, max)
+  link_capacity: 10  # Single value or range (min, max)
+  node_count: 3 # Single value or range (min, max)
+  link_disconnect_rate: 0.1  # Disconnection rate for links
+
+linear_sfc_generation:
+  node_count: 1  # Single value or range (min, max)
+  node_requirement: 5   # Single value or range (min, max)
+  link_requirement: 8   # Single value or range (min, max)
+  num_sfc: 3  # Number of SFCs to generate
